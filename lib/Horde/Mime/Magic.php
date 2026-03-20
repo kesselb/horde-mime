@@ -119,9 +119,9 @@ class Horde_Mime_Magic
      *
      * @param string $type  The MIME type to be mapped to a file extension.
      *
-     * @return string  The file extension of the MIME type.
+     * @return string|false  The file extension of the MIME type.
      */
-    public static function mimeToExt($type)
+    public static function mimeToExt($type): string|false
     {
         if (empty($type)) {
             return false;
