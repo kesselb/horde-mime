@@ -294,14 +294,14 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
      *                          use the default name from the description
      *                          parameter?
      *
-     * @return string  The name of the part.
+     * @return ($default is true ? string : string|null)  The name of the part.
      */
-    public function getName($default = false)
+    public function getName($default = false): ?string
     {
         if (!($name = $this->getDispositionParameter('filename')) &&
             !($name = $this->getContentTypeParameter('name')) &&
             $default) {
-            $name = preg_replace('|\W|', '_', $this->getDescription(false));
+            $name = (string) preg_replace('|\W|', '_', $this->getDescription(false));
         }
 
         return $name;
@@ -711,9 +711,9 @@ implements ArrayAccess, Countable, RecursiveIterator, Serializable
      * @param boolean $default  If the description parameter doesn't exist,
      *                          should we use the name of the part?
      *
-     * @return string  The description of this part.
+     * @return ($default is true ? string|null : string)  The description of this part.
      */
-    public function getDescription($default = false)
+    public function getDescription($default = false): ?string
     {
         if (($ob = $this->_headers['content-description']) &&
             strlen($ob->value)) {
